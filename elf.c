@@ -249,10 +249,13 @@ const char *elf_find_symbol(elf_t *e, uint32_t addr)
     return c_map_at_end(e->symbols, &it) ? NULL : c_map_iter_value(&it, char *);
 }
 
-bool elf_load(elf_t *e, struct riscv_t *rv, memory_t *mem)
+riscv_word_t elf_get_entry(elf_t *e)
 {
-    rv_set_pc(rv, e->hdr->e_entry); /* set the entry point */
+    return e->hdr->e_entry;
+}
 
+bool elf_load(elf_t *e, memory_t *mem)
+{
     /* loop over all of the program headers */
     for (int p = 0; p < e->hdr->e_phnum; ++p) {
         /* find next program header */

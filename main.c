@@ -165,8 +165,15 @@ int main(int argc, char **args)
     }
 
     /* load the ELF file into the memory abstraction */
-    if (!elf_load(elf, rv, state->mem)) {
+    if (!elf_load(elf, state->mem)) {
         fprintf(stderr, "Unable to load ELF file '%s'\n", args[1]);
+        return 1;
+    }
+
+    /* initialize the program counter */
+    const riscv_word_t entry_point = elf_get_entry(elf);
+    if (!rv_set_pc(rv, entry_point)) {
+        fprintf(stderr, "Unable to set the program counter\n");
         return 1;
     }
 

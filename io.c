@@ -115,6 +115,7 @@ uint8_t memory_read_b(memory_t *m, uint32_t addr)
 
 void memory_write(memory_t *m, uint32_t addr, const uint8_t *src, uint32_t size)
 {
+    int a = 0;
     for (uint32_t i = 0; i < size; ++i) {
         uint32_t p = addr + i;
         uint32_t x = p >> 16;
@@ -130,6 +131,7 @@ void memory_write(memory_t *m, uint32_t addr, const uint8_t *src, uint32_t size)
 
 void memory_fill(memory_t *m, uint32_t addr, uint32_t size, uint8_t val)
 {
+    int a = 0;
     for (uint32_t i = 0; i < size; ++i) {
         uint32_t p = addr + i;
         uint32_t x = p >> 16;
